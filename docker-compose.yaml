@@ -11,7 +11,7 @@ services:
     ports:
       - "8080:3000"
     environment:
-      MONGODB_CONNECTION_URI: "mongodb+srv://miracle56u:wbYW0fTEyxeDoEgo@database.04p4mno.mongodb.net/"
+      MONGODB_CONNECTION_URI: "mongodb+srv://miracle56u:<db_password>@database.04p4mno.mongodb.net/?retryWrites=true&w=majority&appName=Database"
       AUTH_API_ADDRESSS: "auth:3000"
   nextapp:
     build: ./frontend-app
