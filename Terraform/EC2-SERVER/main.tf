@@ -22,14 +22,6 @@ module "vpc" {
   }
 }
 
-data "terraform_remote_state" "vpc" {
-  backend = "s3"
-  config = {
-    bucket = "microservices-statefile"
-    key    = "eks.tfstate"
-    region = "us-east-1"
-  }
-}
 
 # CREATE SG
 module "sg" {
@@ -63,23 +55,9 @@ module "sg" {
       cidr_blocks = "0.0.0.0/0"
     },
     {
-      description = "etc-cluster Port"
-      from_port   = 2379
-      to_port     = 2380
-      protocol    = "tcp"
-      cidr_blocks = "0.0.0.0/0"
-    },
-    {
       description = "NPM Port"
       from_port   = 3000
       to_port     = 3000
-      protocol    = "tcp"
-      cidr_blocks = "0.0.0.0/0"
-    },
-    {
-      description = "Kube API Server"
-      from_port   = 6443
-      to_port     = 6443
       protocol    = "tcp"
       cidr_blocks = "0.0.0.0/0"
     },
@@ -110,24 +88,11 @@ module "sg" {
       to_port     = 9100
       protocol    = "tcp"
       cidr_blocks = "0.0.0.0/0"
-    },
-    {
-      description = "K8s Ports"
-      from_port   = 10250
-      to_port     = 10260
-      protocol    = "tcp"
-      cidr_blocks = "0.0.0.0/0"
-    },
-    {
-      description = "K8s NodePort"
-      from_port   = 30000
-      to_port     = 32767
-      protocol    = "tcp"
-      cidr_blocks = "0.0.0.0/0"
     }
   ]
 
-  egress_with_cidr_blocks = [
+  
+egress_with_cidr_blocks = [
     {
       from_port   = 0
       to_port     = 0
